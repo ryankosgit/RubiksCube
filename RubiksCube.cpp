@@ -7,7 +7,7 @@
 #include <set>
 using namespace std;
 
-void RubiksCube::setCube()
+RubiksCube::RubiksCube()
 {
     for (int a = 0; a < 3; a++)
     {
