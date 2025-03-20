@@ -5,7 +5,6 @@ using namespace std;
 class RubiksCube
 {
 public:
-    // Face color constants
     const string red = "\033[41m  \033[0m";
     const string green = "\033[42m  \033[0m";
     const string blue = "\033[44m  \033[0m";
@@ -14,13 +13,11 @@ public:
     const string orange = "\033[48;2;255;165;0m  \033[0m"; 
 
 
-    // Public methods
-    void setCube(); // Initialize the cube
+    RubiksCube(); // Initialize the cube
     void displayFaces();
     void userInput();
     void executeScramble();
 
-    // Movements
     void turnRight();
     void turnRightP();
     void turnLeft();
@@ -35,7 +32,6 @@ public:
     void turnFrontP();
 
 private:
-    // Cube faces
     bool userTrue;
     bool generatedScramble;
     string userInputStr;
