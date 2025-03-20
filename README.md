@@ -1,18 +1,3 @@
-Hi!
-
-Disclaimer: this project requires the compiler to support C++11 or higher
-
-You may need to run these commands in your terminal first:
-
-cd [File Location]
-
-g++ -std=c++11 -o RubiksCube RubiksCube.cpp driverCube.cpp
-
-./RubiksCube
-
-Enjoy!
-
-...
 
 ***Cube Notation***
 
