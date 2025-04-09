@@ -1,130 +1,210 @@
-//rubikscube.cpp
-#include <iostream>
+//rubiks cube cpp
+#define whiteface 0
+#define yellowface 1
+#define redface 2
+#define orangeface 3
+#define blueface 4
+#define greenface 5
+
 #include "RubiksCube.h"
-#include <cctype>
-#include <cstdlib>
+#include <iostream>
 #include <ctime>
 #include <set>
 using namespace std;
 
-RubiksCube::RubiksCube()
-{
-    for (int a = 0; a < 3; a++)
-    {
-        for(int b = 0; b < 3; b++)
-        {
-            frontface[a][b] = green;
-            upface[a][b] = white;
-            rightface[a][b] = red;
-            leftface[a][b] = orange;
-            upface[a][b] = white;
-            backface[a][b] = blue;
-            downface[a][b] = yellow;
+RubiksCube::RubiksCube(){
+    for(int x = 0; x < 6; x++){
+        for(int y = 0; y < 3; y++){
+            for(int z = 0; z < 3; z++){
+                cube[y][z][x] = colors[x];
+            }
         }
     }
 };
 
-void RubiksCube::displayFaces()
+void RubiksCube::rotateLayer(int face, bool clockwise) {
+
+    if (clockwise) {
+        rotateFace(face);
+    } 
+    else {
+        rotateFacePrime(face);
+    }
+
+    switch(face) {
+        case(0): 
+        for(int x = 0; x < 3; x++) {
+            if(clockwise) {
+                swap(cube[0][x][greenface], cube[0][x][redface]);
+                swap(cube[0][x][redface], cube[0][x][blueface]);
+                swap(cube[0][x][blueface], cube[0][x][orangeface]);
+            } 
+            else {
+                swap(cube[0][x][blueface], cube[0][x][orangeface]);
+                swap(cube[0][x][redface], cube[0][x][blueface]);
+                swap(cube[0][x][greenface], cube[0][x][redface]);
+            }
+        }
+        break;
+        case(1):
+        for(int x = 0; x < 3; x++) {
+            if(clockwise) {
+                swap(cube[2][x][orangeface], cube[2][x][blueface]);
+                swap(cube[2][x][blueface], cube[2][x][redface]);
+                swap(cube[2][x][redface], cube[2][x][greenface]);
+            } 
+            else {
+                swap(cube[2][x][redface], cube[2][x][greenface]);
+                swap(cube[2][x][blueface], cube[2][x][redface]);
+                swap(cube[2][x][orangeface], cube[2][x][blueface]);
+            }
+        }
+        break;
+        case(2):
+        for(int x = 0; x < 3; x++) {
+            if(clockwise) {
+                swap(cube[x][2][greenface], cube[x][2][whiteface]);
+                swap(cube[x][2][greenface], cube[x][2][yellowface]);
+                swap(cube[2-x][0][blueface], cube[x][2][yellowface]);
+            } 
+            else {
+                swap(cube[2-x][0][blueface], cube[x][2][yellowface]);
+                swap(cube[x][2][greenface], cube[x][2][yellowface]);
+                swap(cube[x][2][greenface], cube[x][2][whiteface]);
+            }
+        }
+        break;
+        case(3):
+        for(int x = 0; x < 3; x++) {
+            if(clockwise) {
+                swap(cube[x][0][greenface], cube[x][0][whiteface]);
+                swap(cube[x][0][whiteface], cube[2-x][2][blueface]);
+                swap(cube[2-x][2][blueface], cube[x][0][yellowface]);
+            } 
+            else {
+                swap(cube[2-x][2][blueface], cube[x][0][yellowface]);
+                swap(cube[x][0][whiteface], cube[2-x][2][blueface]);
+                swap(cube[x][0][greenface], cube[x][0][whiteface]);
+            }
+        }
+        break;
+        case(4):
+        for(int x = 0; x < 3; x++) {
+            if(clockwise) {
+                swap(cube[0][x][whiteface], cube[x][2][redface]);
+                swap(cube[x][2][redface], cube[2][2-x][yellowface]);
+                swap(cube[2][2-x][yellowface], cube[2-x][0][orangeface]);
+            } 
+            else {
+                swap(cube[2][2-x][yellowface], cube[2-x][0][orangeface]);
+                swap(cube[x][2][redface], cube[2][2-x][yellowface]);
+                swap(cube[0][x][whiteface], cube[x][2][redface]);
+            }
+        }
+        break;
+        case(5): 
+    for (int i = 0; i < 3; i++) {
+        if (clockwise) {
+            swap(cube[2][2 - i][whiteface], cube[i][2][orangeface]);
+            swap(cube[i][2][orangeface], cube[0][i][yellowface]);
+            swap(cube[0][i][yellowface], cube[2-i][0][redface]);
+        } else {
+            swap(cube[0][i][yellowface], cube[2-i][0][redface]);
+            swap(cube[i][2][orangeface], cube[0][i][yellowface]);
+            swap(cube[2][2 - i][whiteface], cube[i][2][orangeface]);
+        }
+    }
+    break;
+
+    }
+}
+
+void RubiksCube::clockwise(int x) {
+    rotateLayer(x, true);
+}
+
+void RubiksCube::counterclockwise(int x) {
+    rotateLayer(x, false);
+}
+
+void RubiksCube::rotateFace(int x){
+    swap(cube[0][0][x], cube[2][0][x]);
+    swap(cube[2][0][x], cube[2][2][x]);
+    swap(cube[2][2][x], cube[0][2][x]);
+    swap(cube[1][0][x], cube[2][1][x]);
+    swap(cube[2][1][x], cube[1][2][x]);
+    swap(cube[1][2][x], cube[0][1][x]);
+}
+
+void RubiksCube::rotateFacePrime(int x){
+
+    swap(cube[0][0][x], cube[0][2][x]);
+    swap(cube[0][2][x], cube[2][2][x]);
+    swap(cube[2][2][x], cube[2][0][x]);
+    swap(cube[0][1][x], cube[1][2][x]);
+    swap(cube[1][2][x], cube[2][1][x]);
+    swap(cube[2][1][x], cube[1][0][x]);
+
+};
+
+void RubiksCube::display() const
 {
     cout << "\n";
-    for (int a = 0; a < 3; a++)
-        {
-            for (int x = 0; x < 3; x++)
-                cout << " " << " ";
-
-            for(int b = 0; b < 3; b++)
-                cout << upface[a][b];
-            
-            cout << endl;
-    }
-
-
-
-    for (int a = 0; a < 3; a++)
-            {
-                for(int b = 0; b < 3; b++)
-                    cout << leftface[a][b] ;
-
-                for(int c = 0; c < 3; c++)
-                    cout << frontface[a][c] ;
-
-                for(int d = 0; d < 3; d++)
-                    cout << rightface[a][d];
-
-                for(int e = 0; e < 3; e++)
-                    cout << backface[a][e] ;
-                
-                cout << endl;
-        }
-
-
-    for (int a = 0; a < 3; a++)
-    {
-        for (int x = 0; x < 3; x++)
-            cout << " " << " ";
-
-        for(int b = 0; b < 3; b++)
-            cout << downface[a][b];
-        
+    for (int a = 0; a < 3; a++) {
+        cout << "      ";
+        for (int b = 0; b < 3; b++)
+            cout << cube[a][b][whiteface];
         cout << endl;
-
     }
-
-
-
+    
+    for (int a = 0; a < 3; a++) {
+        for (int face : {orangeface, greenface, redface, blueface})
+            for (int b = 0; b < 3; b++)
+                cout << cube[a][b][face];
+        cout << endl;
+    }
+    
+    for (int a = 0; a < 3; a++) {
+        cout << "      ";
+        for (int b = 0; b < 3; b++)
+            cout << cube[a][b][yellowface];
+        cout << endl;
+    }
+    
 };
 
-void RubiksCube::userInput()
-{
-    
-    set<char> okInput;
-    userTrue = true;
-    
+void RubiksCube::userinput(){
 
-    okInput.insert('R');
-    okInput.insert('L');
-    okInput.insert('U');
-    okInput.insert('D');
-    okInput.insert('F');
-    okInput.insert('B');
-    okInput.insert('\'');
-    okInput.insert('2');
+    userinputbool = true;
 
-    cout << "Welcome to the Rubik's Cube in C++! ";
-    do
+    do{
+    cout << "Type \"scramble\" to scramble, or type some notation \n(ex: R U' F2 B) to move the cube! \nType \"stop\" to quit. \n" << endl;
+    cin >> userInputStr;
+
+    for(int i = 0; i < userInputStr.length(); i++)
     {
-        cout << "Type \"scramble\" to scramble, or type some notation \n(ex: R U' F2 B) to move the cube! \nType \"stop\" to quit. \n" << endl;
-        cin >> userInputStr;
+        userInputStr[i] = toupper(userInputStr[i]);
+    }
 
-        for(int i = 0; i < userInputStr.length(); i++)
-        {
-            userInputStr[i] = toupper(userInputStr[i]);
-        }
+    if(userInputStr == "STOP")
+        userinputbool = false;
+    else if(userInputStr == "SCRAMBLE")
+    {
+        const char faces[] = {'R', 'L', 'U', 'D', 'F', 'B'};
+        const char modifiers[] = {' ', '\'', '2'};
+        scrambleinput = "";
+        generatedScramble = true;
+        srand(time(0)); 
 
-        if(userInputStr == "STOP")
-            userTrue = false;
-        else if (userInputStr == "SCRAMBLE")
-        {
-            const char faces[] = {'R', 'L', 'U', 'D', 'F', 'B'};
-            const char modifiers[] = {' ', '\'', '2'};
-            scrambleinput = "";
-            userInputStr = "";
-            generatedScramble = true;
+        char lastmove = '\0';
 
-
-            srand(time(0)); 
-
-            char lastMove = '\0';
-
-
-    
-               for (int i = 0; i < 20; i++) 
+        for(int i = 0; i < 20; i++) 
             {
-                    char face;
+                char face;
                 do 
                 {
                     face = faces[rand() % 6]; 
-                }while (face == lastMove); 
+                }while (face == lastmove); 
 
                 char modifier = modifiers[rand() % 3]; 
 
@@ -137,567 +217,59 @@ void RubiksCube::userInput()
                 { 
                     scrambleinput += ' ';
                 }
-
-                lastMove = face; 
+                lastmove = face; 
             } 
-            
 
-            userInputStr = scrambleinput;    
+        userInputStr = scrambleinput;    
 
-            RubiksCube::executeScramble();
-            cout << "Scramble: " << userInputStr << "\n";
+        RubiksCube::executeScramble(userInputStr);
+        cout << "Scramble: " << userInputStr << "\n";
              
-        }
-        else
-        {
-            generatedScramble = false;
-            RubiksCube::executeScramble();
-
-        }
-        
-
-     
-
-
-    }while(userTrue == true);
-    cout << "Thanks for playing!" ;
+    }
+    else
+    {
+        generatedScramble = false;
+        RubiksCube::executeScramble(userInputStr);
+    }
+}while(userinputbool == true);
 };
 
-void RubiksCube::executeScramble()
-{
-    set<char> okInput;
-    userTrue = true;
+void RubiksCube::executeScramble(string x){
+    set<char> okInput = {'R', 'L', 'U', 'D', 'F', 'B', '\'', '2'};
 
-
-    okInput.insert('R');
-    okInput.insert('L');
-    okInput.insert('U');
-    okInput.insert('D');
-    okInput.insert('F');
-    okInput.insert('B');
-    okInput.insert('\'');
-    okInput.insert('2');
-
-
-
-
-for(int i = 0; i < userInputStr.length(); i++)
-            {
-                userInputStr[i] = toupper(userInputStr[i]);
+    for(size_t i = 0; i < userInputStr.length(); i++) {
+        char move = userInputStr[i];
+        bool clockwise = true;
+        bool twice = false;
+        
+        if(i + 1 < userInputStr.length()) {
+            if(userInputStr[i + 1] == '\'') {
+                clockwise = false;
+                i++;
+            } 
+            else if(userInputStr[i + 1] == '2') {
+                twice = true;
+                i++;
             }
-            
-
-            for(int i = 0; i < userInputStr.length(); i++)
-                    {
-                        userInputStr[i] = toupper(userInputStr[i]);
-                    }
-
-
-                if(generatedScramble == false)
-                {
-                    for(int k = 0; k < userInputStr.length(); k++)
-                {
-                    if (okInput.find(userInputStr[k]) == okInput.end())
-                    {
-                        cout << "There is an unidentified character in the input: " << userInputStr[k] << "! \n";
-                    }            
-
-                }  
-
-                }
-                
-
-                    
-                for (int x = 0; x < userInputStr.length(); x++)
-                {
-                    if (userInputStr.length() == 1)
-                    {
-                        if (userInputStr[x] == 'R')
-                        RubiksCube::turnRight();
-                        
-                        else if (userInputStr[x] == 'L')
-                        RubiksCube::turnLeft();
-
-                        else if(userInputStr[x] == 'U')
-                        RubiksCube::turnUp();
-
-                        else if(userInputStr[x] == 'F')
-                        RubiksCube::turnFront();
-
-                        else if(userInputStr[x] == 'D')
-                        RubiksCube::turnDown();
-
-                        else if(userInputStr[x] == 'B')
-                        RubiksCube::turnBack();
-
-                        else cout << "There is an unidentified character in the input: " << userInputStr[0];
-                    }
-                    else
-                    {
-                        
-                        if (userInputStr[x] == 'R' && userInputStr[x + 1] == '2') 
-                        {
-                        RubiksCube::turnRight();
-                        RubiksCube::turnRight();
-                        }
-                        else if (userInputStr[x] == 'R' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnRightP();
-                        } 
-                        else if (userInputStr[x] == 'R' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnRight();
-                        }
-                        else if (userInputStr[x] == 'L' && userInputStr[x + 1] == '2') 
-                        {
-                            RubiksCube::turnLeft();
-                            RubiksCube::turnLeft();
-                        } 
-                        else if (userInputStr[x] == 'L' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnLeftP();
-                        } 
-                        else if (userInputStr[x] == 'L' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnLeft();
-                        } 
-                        else if (userInputStr[x] == 'U' && userInputStr[x + 1] == '2') 
-                        {
-                            RubiksCube::turnUp();
-                            RubiksCube::turnUp();
-                        } 
-                        else if (userInputStr[x] == 'U' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnUpP();
-                        } 
-                        else if (userInputStr[x] == 'U' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnUp();
-                        } 
-                        else if (userInputStr[x] == 'D' && userInputStr[x + 1] == '2') 
-                        {
-                            RubiksCube::turnDown();
-                            RubiksCube::turnDown();
-                        } 
-                        else if (userInputStr[x] == 'D' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnDownP();
-                        } 
-                        else if (userInputStr[x] == 'D' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnDown();
-                        } 
-                        else if (userInputStr[x] == 'F' && userInputStr[x + 1] == '2') 
-                        {
-                            RubiksCube::turnFront();
-                            RubiksCube::turnFront();
-                        } 
-                        else if (userInputStr[x] == 'F' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnFrontP();
-                        } 
-                        else if (userInputStr[x] == 'F' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnFront();
-                        } 
-                        else if (userInputStr[x] == 'B' && userInputStr[x + 1] == '2') 
-                        {
-                            RubiksCube::turnBack();
-                            RubiksCube::turnBack();
-                        } 
-                        else if (userInputStr[x] == 'B' && userInputStr[x + 1] == '\'') 
-                        {
-                            RubiksCube::turnBackP();
-                        } 
-                        else if (userInputStr[x] == 'B' && userInputStr[x + 1] != '\'' && userInputStr[x + 1] != '2') 
-                        {
-                            RubiksCube::turnBack();
-                        }
-                        if(userInputStr[x] == '\'')
-                            cout << "";
-                        else if(userInputStr[x] == ' ')
-                            cout << "";
-                    
-                    }
         }
 
-        RubiksCube::displayFaces();
-};
+        int face;
+        switch(move) {
+            case 'U': face = 0; break;
+            case 'D': face = 1; break;
+            case 'R': face = 2; break;
+            case 'L': face = 3; break;
+            case 'B': face = 4; break;
+            case 'F': face = 5; break;
+            case ' ': continue;
+            default: continue;
+        }
 
-void RubiksCube::turnRight()
-{
-    //frontface temp var
-    string temparray[3];
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[x][2];  //temp
-        frontface[x][2] = downface[x][2]; //yellow on green
-        downface[x][2] = backface[2 - x][0]; //blue on yellow
-        backface[2 - x][0] = upface[x][2]; //white on blue
-        upface[x][2] = temparray[x]; //green on white
+        rotateLayer(face, clockwise);
+        if(twice) {
+            rotateLayer(face, clockwise);
+        }
     }
-
-
-
-    //sideface redface turn 
-    string cornertemp = rightface[0][0]; //left corner stash in temp
-    string edgetemp = rightface[0][1]; //edge temp
-
-    rightface[0][0] = rightface[2][0];
-    rightface[0][1] = rightface[1][0];
-
-    rightface[2][0] = rightface[2][2];
-    rightface[1][0] = rightface[2][1];
-
-    rightface[2][1] = rightface[1][2];
-    rightface[2][2] = rightface[0][2];
-
-    rightface[1][2] = edgetemp;
-    rightface[0][2] = cornertemp;
-
-};
-
-void RubiksCube::turnRightP()
-{
-    //frontface temp var
-    string temparray[3];
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[x][2];
-        frontface[x][2] = upface[x][2]; //white on green
-        upface[x][2] = backface[2 - x][0];    //blue on white
-        backface[2 - x][0] = downface[x][2]; //yellow on blue
-        downface[x][2] = temparray[x];   //green on yellow
-    }
-
-    //sideface redface turn counter clockwise
-    string cornertemp = rightface[0][0]; //left corner stash in temp
-    string edgetemp = rightface[0][1]; //edge temp
-
-    rightface[0][0] = rightface[0][2];
-    rightface[0][1] = rightface[1][2];
-
-    rightface[0][2] = rightface[2][2];
-    rightface[1][2] = rightface[2][1];
-
-    rightface[2][2] = rightface[2][0];
-    rightface[2][1] = rightface[1][0];
-
-    rightface[1][0] = edgetemp;
-    rightface[2][0] = cornertemp;
-};
-
-void RubiksCube::turnLeft()
-{
-        
-    string temparray[3];
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[x][0];  //frontface temp var
-        frontface[x][0] = upface[x][0];  //white on green
-        upface[x][0] = backface[2-x][2];  //blue on white
-        backface[2-x][2] = downface[x][0]; //yellow on blue
-        downface[x][0] = temparray[x]; //green on yellow
-    }
-
-    string cornertemp = leftface[0][0]; //left corner stash in temp
-    string edgetemp = leftface[0][1]; //edge temp
-
-    leftface[0][0] = leftface[2][0];
-    leftface[0][1] = leftface[1][0];
-
-    leftface[2][0] = leftface[2][2];
-    leftface[1][0] = leftface[2][1];
-
-    leftface[2][1] = leftface[1][2];
-    leftface[2][2] = leftface[0][2];
-
-    leftface[1][2] = edgetemp;
-    leftface[0][2] = cornertemp;
-
-
-   
-
-};
-
-void RubiksCube::turnLeftP()
-{
-//leftprime
-
- //frontface temp var
-    string temparray[3];
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[x][0]; //front temp
-        frontface[x][0] = downface[x][0]; //yellow on green
-        downface[x][0] = backface[2-x][2]; //blue on yellow
-        backface[2-x][2] = upface[x][0]; //white on blue
-        upface[x][0] = temparray[x]; //green on white
-    }
-
-    string cornertemp = leftface[0][0]; 
-    string edgetemp = leftface[0][1]; 
-    leftface[0][0] = leftface[0][2];
-    leftface[0][1] = leftface[1][2];
-
-    leftface[0][2] = leftface[2][2];
-    leftface[1][2] = leftface[2][1];
-
-    leftface[2][2] = leftface[2][0];
-    leftface[2][1] = leftface[1][0];
-
-    leftface[1][0] = edgetemp;
-    leftface[2][0] = cornertemp;
-};
-
-void RubiksCube::turnUp()
-{
-
-    string temparray[3];
-
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[0][x];  //frontface temp var
-        frontface[0][x] = rightface[0][x];  //white on green
-        rightface[0][x] = backface[0][x];  //blue on white
-        backface[0][x] = leftface[0][x]; //yellow on blue
-        leftface[0][x] = temparray[x]; //green on yellow
-    }
-
-    string cornertemp = upface[0][0]; //left corner stash in temp
-    string edgetemp = upface[0][1]; //edge temp
-
-    upface[0][0] = upface[2][0];
-    upface[0][1] = upface[1][0];
-
-    upface[2][0] = upface[2][2];
-    upface[1][0] = upface[2][1];
-
-    upface[2][1] = upface[1][2];
-    upface[2][2] = upface[0][2];
-
-    upface[1][2] = edgetemp;
-    upface[0][2] = cornertemp;
-};
-
-void RubiksCube::turnUpP()
-{
-    string temparray[3];
-
-    for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[0][x];  //frontface temp var
-        frontface[0][x] = leftface[0][x]; 
-        leftface[0][x] = backface[0][x];  
-        backface[0][x] = rightface[0][x]; 
-        rightface[0][x] = temparray[x];
-    }
-
-   string cornertemp = upface[0][0]; 
-    string edgetemp = upface[0][1]; 
-    upface[0][0] = upface[0][2];
-    upface[0][1] = upface[1][2];
-
-    upface[0][2] = upface[2][2];
-    upface[1][2] = upface[2][1];
-
-    upface[2][2] = upface[2][0];
-    upface[2][1] = upface[1][0];
-
-    upface[1][0] = edgetemp;
-    upface[2][0] = cornertemp;
-
-
-
-
-
-};
-
-void RubiksCube::turnFront()
-{
-
-    string temparray[3];
-
-for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = upface[2][x];  //frontface temp var
-        upface[2][x] = leftface[2 - x][2];  
-        leftface[2 - x][2] = downface[0][2-x];  
-        downface[0][2-x] = rightface[x][0]; 
-        rightface[x][0] = temparray[x]; 
-    }
-
-
-  string cornertemp = frontface[0][0]; //left corner stash in temp
-    string edgetemp = frontface[0][1]; //edge temp
-
-    frontface[0][0] = frontface[2][0];
-    frontface[0][1] = frontface[1][0];
-
-    frontface[2][0] = frontface[2][2];
-    frontface[1][0] = frontface[2][1];
-
-    frontface[2][1] = frontface[1][2];
-    frontface[2][2] = frontface[0][2];
-
-    frontface[1][2] = edgetemp;
-    frontface[0][2] = cornertemp;
-
-};
-
-void RubiksCube::turnFrontP()
-{
-string temparray[3];
-
-for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = upface[2][x];  
-        upface[2][x] = rightface[x][0];  
-        rightface[x][0] = downface[0][2-x]; 
-        downface[0][2-x] = leftface[2-x][2]; 
-        leftface[2 - x][2] = temparray[x]; 
-    }
-
-    string cornertemp = frontface[0][0]; 
-    string edgetemp = frontface[0][1]; 
-    frontface[0][0] = frontface[0][2];
-    frontface[0][1] = frontface[1][2];
-
-    frontface[0][2] = frontface[2][2];
-    frontface[1][2] = frontface[2][1];
-
-    frontface[2][2] = frontface[2][0];
-    frontface[2][1] = frontface[1][0];
-
-    frontface[1][0] = edgetemp;
-    frontface[2][0] = cornertemp;
-};
-
-void RubiksCube::turnDown()
-{
-    string temparray[3];
-
-for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[2][x];  //frontface temp var
-        frontface[2][x] = leftface[2][x];  
-        leftface[2][x] = backface[2][x];  
-        backface[2][x] = rightface[2][x]; 
-        rightface[2][x] = temparray[x]; 
-    }
-
-
-
- 
-
-    string cornertemp = downface[0][0]; //left corner stash in temp
-    string edgetemp = downface[0][1]; //edge temp
-
-    downface[0][0] = downface[2][0];
-    downface[0][1] = downface[1][0];
-
-    downface[2][0] = downface[2][2];
-    downface[1][0] = downface[2][1];
-
-    downface[2][1] = downface[1][2];
-    downface[2][2] = downface[0][2];
-
-    downface[1][2] = edgetemp;
-    downface[0][2] = cornertemp;
-};
-
-void RubiksCube::turnDownP()
-{
-string temparray[3];
-
-       for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = frontface[2][x];  
-        frontface[2][x] = rightface[2][x];  
-        rightface[2][x] = backface[2][x];  
-        backface[2][x] = leftface[2][x]; 
-        leftface[2][x] = temparray[x]; 
-    }
-
-    string cornertemp = downface[0][0]; 
-    string edgetemp = downface[0][1]; 
-    downface[0][0] = downface[0][2];
-    downface[0][1] = downface[1][2];
-
-    downface[0][2] = downface[2][2];
-    downface[1][2] = downface[2][1];
-
-    downface[2][2] = downface[2][0];
-    downface[2][1] = downface[1][0];
-
-    downface[1][0] = edgetemp;
-    downface[2][0] = cornertemp;
-
-};
-
-void RubiksCube::turnBack()
-{
-
-string temparray[3];
-
-for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = upface[0][x];  
-        upface[0][x] = rightface[x][2];  
-        rightface[x][2] = downface[2][2-x]; 
-        downface[2][2-x] = leftface[2-x][0]; 
-        leftface[2 - x][0] = temparray[x]; 
-    }
-
-
-
-  string cornertemp = backface[0][0]; //left corner stash in temp
-    string edgetemp = backface[0][1]; //edge temp
-
-    backface[0][0] = backface[2][0];
-    backface[0][1] = backface[1][0];
-
-    backface[2][0] = backface[2][2];
-    backface[1][0] = backface[2][1];
-
-    backface[2][1] = backface[1][2];
-    backface[2][2] = backface[0][2];
-
-    backface[1][2] = edgetemp;
-    backface[0][2] = cornertemp;
-
-};
-
-void RubiksCube::turnBackP()
-{
-
-string temparray[3];
-
-for(int x = 0; x < 3; x++)
-    {
-        temparray[x] = upface[0][x];  //frontface temp var
-        upface[0][x] = leftface[2 - x][0];  
-        leftface[2 - x][0] = downface[2][2-x];  
-        downface[2][2-x] = rightface[x][2]; 
-        rightface[x][2] = temparray[x]; 
-    }
-
-
-    string cornertemp = backface[0][0]; 
-    string edgetemp = backface[0][1]; 
-    backface[0][0] = backface[0][2];
-    backface[0][1] = backface[1][2];
-
-    backface[0][2] = backface[2][2];
-    backface[1][2] = backface[2][1];
-
-    backface[2][2] = backface[2][0];
-    backface[2][1] = backface[1][0];
-
-    backface[1][0] = edgetemp;
-    backface[2][0] = cornertemp;
-
-
-
-};
-
+    
+    display();
+}
