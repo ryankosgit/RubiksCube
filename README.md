@@ -14,12 +14,20 @@ README.md       # README
 To setup the program, first download the two .cpp files and the header. Then, compile the files together using these functions
 
 ## Mac - Use these if you're on a Macbook
-```g++ driverCube.cpp RubiksCube.cpp -o cube```
-```./cube```
+```
+g++ driverCube.cpp RubiksCube.cpp -o cube
+```
+```
+./cube
+```
 
 ## Windows - Use these if you're on a Windows computer
-```g++ driverCube.cpp RubiksCube.cpp -o cube.exe```
-```cube.exe```
+```
+g++ driverCube.cpp RubiksCube.cpp -o cube.exe
+```
+```
+cube.exe
+```
 
 You should now see the cube and its colored faces.
 
