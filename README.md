@@ -9,6 +9,7 @@ RubiksCube.h    # Header file that contains the declarations
 driverCube.cpp  # Driver that runs the program
 makefile        # makefile for easy running
 README.md       # README
+DemoPic         # Picture used in the ReadMe
 ```
 # Setup + Run
 
@@ -39,4 +40,7 @@ cube.exe
 ```
 
 You should now see the cube and its colored faces.
+
+![Demo](DemoPic)
+
 
