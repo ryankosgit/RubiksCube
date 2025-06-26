@@ -55,7 +55,7 @@ B = Back Face
 U = Up Face 
 D = Down Face 
 ```
-On a physical Rubik's Cube, these notations change relative to how you're holding the cube. In our program, however, since the green side is facing forward and the white face is on top, our notation is fixed to that position.
+On a physical Rubik's Cube, these notations change relative to how you're holding the cube. In our program, however, since the green side is facing forward and the white face is on top, our notation is fixed to that position. Also note that the program is not case-sensitive, and if you enter a space or unrecognized character in the terminal, then the program will simply ignore it and carry on with the other executable moves. 
 
 ```
 R - Turns right face clockwise 
@@ -82,6 +82,18 @@ Example: ```F2``` means turn the front face 180°.
 
 <img width="600" alt="Screenshot 2025-06-26 at 11 54 21 AM" src="https://github.com/user-attachments/assets/6a965ad5-15c6-4e0c-b1c6-3cc8905ded5a" />
 
+#### Here are some example moves
+```R U R' U'```
+<img width="601" alt="Screenshot 2025-06-26 at 12 19 16 PM" src="https://github.com/user-attachments/assets/b596c1b3-a407-4275-83df-b35d0d602510" />
+
+
+
+### Other Tools
+You can also scramble the cube using a scrambling algorithm used in official Rubik's Cube Tournaments by simply entering ```scramble``` into the terminal. From here, it tells you the moves executed to scramble the cube.
+
+# How to Exit
+
+To stop the program, simply enter ```stop``` into the terminal.
 
 
 
