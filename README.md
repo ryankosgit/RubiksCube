@@ -20,8 +20,9 @@ To setup the program, first download the two .cpp files, thet header, and the ma
 make      # Builds the executable 'rubik'
 ./rubik   # Runs the program
 ```
+## Option 2: Manual compilation
 
-### Mac - Use these if you're on a Macbook
+### MacOS/Linux 
 ```
 g++ driverCube.cpp RubiksCube.cpp -o cube
 ```
@@ -29,7 +30,7 @@ g++ driverCube.cpp RubiksCube.cpp -o cube
 ./cube
 ```
 
-### Windows - Use these if you're on a Windows computer
+### Windows
 ```
 g++ driverCube.cpp RubiksCube.cpp -o cube.exe
 ```
