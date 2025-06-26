@@ -93,7 +93,11 @@ Example: ```F2``` means turn the front face 180°.
 
 
 ### Other Tools
-You can also scramble the cube using a scrambling algorithm used in official Rubik's Cube Tournaments by simply entering ```scramble``` into the terminal. From here, it tells you the moves executed to scramble the cube.
+You can also scramble the cube using a scrambling algorithm used in official Rubik's Cube Tournaments by simply entering ```scramble``` into the terminal. From here, it tells you the moves executed to scramble the cube. Here's an example:
+
+```scramble```
+<img width="717" alt="Screenshot 2025-06-26 at 12 24 59 PM" src="https://github.com/user-attachments/assets/3c4bdc8a-2ed4-4b20-8242-ac1432502835" />
+
 
 # How to Exit
 
