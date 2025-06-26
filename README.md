@@ -43,8 +43,10 @@ You should now see the cube and its colored faces.
 
 <img width="635" alt="DemoPic" src="https://github.com/user-attachments/assets/fecc1a66-6326-4527-906d-c8587b8b9985" />
 
+# How to Turn the Cube
+
 Now we can get to the fun part...turning the cube!
-First, it's important to understand the notation of the cube. Since the cube has 6 faces, there are six letters that correspond to turning each face.
+First, it's important to understand the notation of the cube. Since the cube has 6 faces, there are six letters that correspond to each of its faces.
 ```
 R = Right Face (Red)
 L = Left Face (Orange)
@@ -53,5 +55,10 @@ B = Back Face (Blue)
 U = Up Face (White)
 D = Down Face (Yellow)
 ```
+
+Each Letter
+
+*(Also, the notation input isn't case-sensitive)*
+
 
 
