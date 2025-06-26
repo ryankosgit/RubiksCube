@@ -55,7 +55,7 @@ B = Back Face
 U = Up Face 
 D = Down Face 
 ```
-On a physical Rubik's Cube, these notations change relative to how you're holding the cube. In our program, however, since the green side is facing forward and the white face is on top, our notation is fixed to that position. Also note that the program is not case-sensitive, and if you enter a space or unrecognized character in the terminal, then the program will simply ignore it and carry on with the other executable moves. 
+On a physical Rubik's Cube, these notations change relative to how you're holding the cube. In our program, however, since the green side is facing forward and the white face is on top, our notation is fixed to that position. Also note that the program is not case-sensitive, and if you enter an unrecognized character in the terminal, then the program will simply ignore it and carry on with the other executable moves. Using spaces or not doesn't change the cube's movements, but note that if you add spaces in between your notations, the program will print each move that you make individually.
 
 ```
 R - Turns right face clockwise 
@@ -83,9 +83,13 @@ Example: ```F2``` means turn the front face 180°.
 <img width="600" alt="Screenshot 2025-06-26 at 11 54 21 AM" src="https://github.com/user-attachments/assets/6a965ad5-15c6-4e0c-b1c6-3cc8905ded5a" />
 
 #### Here are some example moves
-```R U R' U'```
+```RUR'U'```
+
 <img width="601" alt="Screenshot 2025-06-26 at 12 19 16 PM" src="https://github.com/user-attachments/assets/b596c1b3-a407-4275-83df-b35d0d602510" />
 
+```L' B2```
+
+<img width="604" alt="Screenshot 2025-06-26 at 12 24 03 PM" src="https://github.com/user-attachments/assets/f9c0185c-6f9e-49a4-b135-e9e7ad557f0b" />
 
 
 ### Other Tools
