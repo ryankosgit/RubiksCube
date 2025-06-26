@@ -41,6 +41,7 @@ cube.exe
 
 You should now see the cube and its colored faces.
 
-![RubiksCube](DemoPic.png)
+<img width="635" alt="DemoPic" src="https://github.com/user-attachments/assets/fecc1a66-6326-4527-906d-c8587b8b9985" />
 
+From here, it's important to understand the cube's notation.
 
