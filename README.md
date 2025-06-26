@@ -46,19 +46,20 @@ You should now see the cube and its colored faces.
 # How to Turn the Cube
 
 Now we can get to the fun part...turning the cube!
-First, it's important to understand the notation of the cube. Since the cube has 6 faces, there are six letters that correspond to each of its faces.
+First, it's important to understand the notation of the cube. The Rubik's Cube has 6 faces, each represented by a letter
 ```
-R = Right Face (Red)
-L = Left Face (Orange)
-F = Front Face (Green)
-B = Back Face (Blue)
-U = Up Face (White)
-D = Down Face (Yellow)
+R = Right Face 
+L = Left Face
+F = Front Face 
+B = Back Face 
+U = Up Face 
+D = Down Face 
 ```
+On a physical Rubik's Cube, these notations change relative to how you're holding the cube. In our program, however, since the green side is facing forward and the white face is on top, our notation is fixed to that position.
 
-Each Letter
+Entering a letter in
 
-*(Also, the notation input isn't case-sensitive)*
+
 
 
 
