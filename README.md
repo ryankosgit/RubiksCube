@@ -7,13 +7,21 @@ This is a simulation built in C++ of a 3x3 Rubik's Cube. The user can utilize th
 RubiksCube.cpp  # Main file that defines all of the functions
 RubiksCube.h    # Header file that contains the declarations
 driverCube.cpp  # Driver that runs the program
+makefile        # makefile for easy running
 README.md       # README
 ```
 # Setup + Run
 
-To setup the program, first download the two .cpp files and the header. Then, compile the files together using these functions
+To setup the program, first download the two .cpp files, thet header, and the makefilfe. Then, compile the files together using these functions. You have two options:
 
-## Mac - Use these if you're on a Macbook
+## Option 1: With the makefile (recommended)
+
+```bash
+make      # Builds the executable 'rubik'
+./rubik   # Runs the program
+```
+
+### Mac - Use these if you're on a Macbook
 ```
 g++ driverCube.cpp RubiksCube.cpp -o cube
 ```
@@ -21,7 +29,7 @@ g++ driverCube.cpp RubiksCube.cpp -o cube
 ./cube
 ```
 
-## Windows - Use these if you're on a Windows computer
+### Windows - Use these if you're on a Windows computer
 ```
 g++ driverCube.cpp RubiksCube.cpp -o cube.exe
 ```
