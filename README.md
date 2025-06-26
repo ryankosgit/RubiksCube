@@ -41,6 +41,6 @@ cube.exe
 
 You should now see the cube and its colored faces.
 
-![RubiksCube](DemoPic)
+![RubiksCube](DemoPic.png)
 
 
