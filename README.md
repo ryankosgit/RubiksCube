@@ -1,6 +1,6 @@
 # Rubik's Cube Simulator
 
-This is a simulation built in C++ of a 3x3 Rubik's Cube. Use the terminal to write commands using Rubik's Cube notation that decide the cube's movements, or you can scramble it using an algorithm I built that follows the official World Cube Association scrambling rules. 
+This is a simulation of a 3x3 Rubik's Cube. This project leverages object-oriented programming fundamentals for the cube's design and functionality. Use the terminal to write commands using Rubik's Cube notation that decide the cube's movements, or you can scramble it using an algorithm I built that follows the official World Cube Association scrambling rules. 
 **Also, your compiler needs to support C++11 or higher to run.**
 
 # Files
